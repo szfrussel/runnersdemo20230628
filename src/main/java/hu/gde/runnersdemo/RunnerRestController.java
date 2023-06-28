@@ -61,6 +61,22 @@ public class RunnerRestController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Runner with ID " + id + " not found");
         }
     }
+
+    @GetMapping("/biggestshoesize")
+    public ResponseEntity getRunnerWithBiggestShoeSize() {
+        List<RunnerEntity> runners = runnerRepository.findAll();
+        if (runners.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Futók nem találhatók");
+        } else {
+            RunnerEntity runnerWithBiggestShoeSize = runners.get(0);
+            for (RunnerEntity runner : runners) {
+                if (runner.getShoeSize() > runnerWithBiggestShoeSize.getShoeSize()) {
+                    runnerWithBiggestShoeSize = runner;
+                }
+            }
+            return ResponseEntity.ok(runnerWithBiggestShoeSize.getRunnerName());
+        }
+    }
     public static class LapTimeRequest {
         private int lapTimeSeconds;
 
