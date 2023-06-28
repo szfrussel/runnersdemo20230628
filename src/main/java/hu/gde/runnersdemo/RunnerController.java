@@ -46,7 +46,8 @@ public class RunnerController {
             model.addAttribute("runner", runner);
             double averageLaptime = runnerService.getAverageLaptime(runner.getRunnerId());
             model.addAttribute("averageLaptime", averageLaptime);
-
+            String shoeName = runner.getShoeName().getShoeName();
+            model.addAttribute("shoeName", shoeName);
             return "runner";
         } else {
             return "error";
