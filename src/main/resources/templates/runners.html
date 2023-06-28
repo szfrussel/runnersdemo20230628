@@ -26,6 +26,12 @@
                 <a th:href="@{/runner/{id}(id=${runner.runnerId})}" class="btn btn-primary">View</a>
             </td>
         </tr>
+        <tr>
+            <td></td>
+            <td>Average Pace:</td>
+            <td th:text="${#numbers.formatDecimal(averagePace, 1, 1)} + ' s'"></td>
+            <td></td>
+        </tr>
         </tbody>
     </table>
 </div>

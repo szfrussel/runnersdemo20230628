@@ -20,7 +20,21 @@ public class RunnerController {
     @GetMapping("/runners")
     public String getAllRunners(Model model) {
         List<RunnerEntity> runners = runnerRepository.findAll();
+
+
+        int count = 0;
+        double pace = 0;
+
+        for (RunnerEntity runner : runners) {
+            pace += runner.getPace();
+            count++;
+        }
+
+        double averagePace = pace / count;
+
+        model.addAttribute("averagePace", averagePace);
         model.addAttribute("runners", runners);
+
         return "runners";
     }
 
@@ -32,6 +46,7 @@ public class RunnerController {
             model.addAttribute("runner", runner);
             double averageLaptime = runnerService.getAverageLaptime(runner.getRunnerId());
             model.addAttribute("averageLaptime", averageLaptime);
+
             return "runner";
         } else {
             return "error";
